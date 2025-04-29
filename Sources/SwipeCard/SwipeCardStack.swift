@@ -64,7 +64,7 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
     public var body: some View {
         ZStack {
             ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
-                createSwipeCard(for: item, at: items.count - index - 1, index: index)
+                createSwipeCard(for: item, at: index, index: items.count - index - 1)
             }
             .animation(stackConfiguration.entryAnimation.curve, value: items)
         }
@@ -74,7 +74,7 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
     /// - Parameters:
     ///   - item: 卡片对应的数据项
     ///   - position: 卡片在堆叠中的位置（0表示最顶层）
-    ///   - index: 卡片在数据数组中的索引
+    ///   - index: 卡片的zIndex
     /// - Returns: 配置好的SwipeCard视图
     private func createSwipeCard(for item: Data, at position: Int, index: Int) -> some View {
         SwipeCard(configuration: swipeConfiguration) {
@@ -84,7 +84,7 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
         } onComplete: { direction in
             onSwipe?(item, direction) ?? false
         } onFinish: { direction in
-            self.items.removeLast()
+            self.items.removeFirst()
             if items.isEmpty {
                 onFinished?(item, direction)
             }
