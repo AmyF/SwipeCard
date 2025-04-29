@@ -17,7 +17,7 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
     public var swipeConfiguration: SwipeConfiguration
     /// 卡片堆叠的配置，控制堆叠效果和动画
     public var stackConfiguration: SwipeCardStackConfiguration
-    
+
     /// 卡片滑动判定回调，返回值决定是否完成滑动
     private var onSwipe: ((Data, SwipeDirection) -> Bool)?
     /// 滑动进行中的回调，提供滑动方向和进度信息
@@ -26,10 +26,10 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
     private var onCancel: ((Data) -> Void)?
     /// 全部卡片滑完后的回调
     private var onFinished: ((Data, SwipeDirection) -> Void)?
-    
+
     /// 卡片内容视图构造器
     @ViewBuilder public var content: (Data) -> Content
-    
+
     /// 初始化卡片堆叠视图
     /// - Parameters:
     ///   - items: 数据项数组的绑定
@@ -59,7 +59,7 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
         self.onFinished = onFinished
         self.content = content
     }
-    
+
     /// 视图主体，创建卡片堆叠效果
     public var body: some View {
         ZStack {
@@ -69,7 +69,7 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
             .animation(stackConfiguration.entryAnimation.curve, value: items)
         }
     }
-    
+
     /// 创建单张滑动卡片
     /// - Parameters:
     ///   - item: 卡片对应的数据项
@@ -142,10 +142,11 @@ extension View {
         initialScale: CGFloat,
         initialOffsetY: CGFloat
     ) -> some View {
-        modifier(EntryAnimation(
-            curve: curve,
-            initialScale: initialScale,
-            initialOffsetY: initialOffsetY
-        ))
+        modifier(
+            EntryAnimation(
+                curve: curve,
+                initialScale: initialScale,
+                initialOffsetY: initialOffsetY
+            ))
     }
 }

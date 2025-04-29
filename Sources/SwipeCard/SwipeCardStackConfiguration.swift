@@ -16,7 +16,7 @@ public struct SwipeCardStackConfiguration: Sendable {
     /// 每一层比上一层额外缩小的比例（默认 0.03）
     /// 这个值决定了堆叠卡片之间的大小差异，值越大，下方卡片看起来越小
     public var stackScaleFactor: CGFloat
-    
+
     /// 每一层比上一层额外向下偏移的距离（默认 12 点）
     /// 这个值决定了堆叠卡片之间的垂直间距，值越大，卡片堆叠时露出的部分越多
     public var stackYOffset: CGFloat
@@ -28,15 +28,15 @@ public struct SwipeCardStackConfiguration: Sendable {
         /// 入场动画曲线（默认为弹簧动画）
         /// 控制卡片出现时的动画方式
         public var curve: Animation
-        
+
         /// 层级间的延迟（秒）（默认 0.1 秒）
         /// 堆叠卡片间动画启动的时间差，创造级联动画效果
         public var delay: Double
-        
+
         /// 初始状态的缩放（默认 0.9）
         /// 卡片动画开始前的初始缩放比例
         public var initialScale: CGFloat
-        
+
         /// 初始状态的 Y 偏移（默认 20 点）
         /// 卡片动画开始前的初始垂直位置偏移量
         public var initialOffsetY: CGFloat

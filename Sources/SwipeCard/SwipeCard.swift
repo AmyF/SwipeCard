@@ -64,7 +64,10 @@ public struct SwipeCard<Content: View>: View {
             // 滑动过程中的透明度效果
             .opacity(gestureHandler.opacity)
             // 滑动过程中的旋转效果
-            .rotationEffect(.degrees(Double(gestureHandler.offset.width / 25)), anchor: gestureHandler.rotationAnchor)
+            .rotationEffect(
+                .degrees(Double(gestureHandler.offset.width / 25)),
+                anchor: gestureHandler.rotationAnchor
+            )
             // 添加拖动手势
             .gesture(
                 DragGesture()

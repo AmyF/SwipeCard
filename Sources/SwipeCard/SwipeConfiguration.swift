@@ -18,6 +18,18 @@ public enum SwipeDirection: Sendable {
     case up
     /// 向下滑动
     case down
+
+    /// 判断当前方向是否为水平方向（左或右）
+    /// - Returns: 如果是左右方向则返回 true，否则返回 false
+    public var isHorizontal: Bool {
+        self == .left || self == .right
+    }
+
+    /// 判断当前方向是否为垂直方向（上或下）
+    /// - Returns: 如果是上下方向则返回 true，否则返回 false
+    public var isVertical: Bool {
+        self == .up || self == .down
+    }
 }
 
 /// 滑动支持方向的选项集
@@ -25,18 +37,18 @@ public enum SwipeDirection: Sendable {
 public struct SwipeSupportDirection: Sendable, OptionSet {
     /// 原始值，用于位掩码存储
     public let rawValue: Int
-    
+
     /// 初始化方法
     /// - Parameter rawValue: 原始整数值
     public init(rawValue: Int) {
         self.rawValue = rawValue
     }
-    
+
     /// 水平方向滑动选项（左右）
     public static let horizontal = SwipeSupportDirection(rawValue: 1 << 0)
     /// 垂直方向滑动选项（上下）
     public static let vertical = SwipeSupportDirection(rawValue: 1 << 1)
-    
+
     /// 支持所有方向的滑动选项
     public static let all: SwipeSupportDirection = [.horizontal, vertical]
 }
