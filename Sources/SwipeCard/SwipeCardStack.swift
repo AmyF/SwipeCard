@@ -18,6 +18,9 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
     /// 卡片堆叠的配置，控制堆叠效果和动画
     public var stackConfiguration: SwipeCardStackConfiguration
 
+    // 标记一张卡片正在执行出场动画
+    @State private var isExiting = false
+
     /// 卡片滑动判定回调，返回值决定是否完成滑动
     private var onSwipe: ((Data, SwipeDirection) -> Bool)?
     /// 滑动进行中的回调，提供滑动方向和进度信息
@@ -82,9 +85,13 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
         } onCancel: {
             onCancel?(item)
         } onComplete: { direction in
-            onSwipe?(item, direction) ?? false
+            // 出场动画马上开始
+            isExiting = true
+            // 交给用户决定是否真的出场
+            return onSwipe?(item, direction) ?? true
         } onFinish: { direction in
             self.items.removeFirst()
+            self.isExiting = false
             if items.isEmpty {
                 onFinished?(item, direction)
             }
@@ -100,6 +107,7 @@ public struct SwipeCardStack<Data: Equatable, Content: View>: View where Data: I
             initialScale: stackConfiguration.entryAnimation.initialScale,
             initialOffsetY: stackConfiguration.entryAnimation.initialOffsetY
         )
+        .allowsHitTesting((position == 0) || (position == 1 && isExiting))
     }
 }
 
